@@ -14,6 +14,13 @@ import youtube_dl
 load_dotenv('.env')
 files_end = ['.mp4', '.mp3', '.webm', '.part']
 
+def download_video(update: Update, context: CallbackContext):
+    for file in os.listdir(r'C:\Users\Digital\Documents\GitHub\tgram_ybot2'):
+        if file.endswith('.mp4'):
+            context.bot.send_video(chat_id=update.effective_chat.id, video=open(f'{file}', 'rb'))
+            clear_downloads()
+
+
 def clear_downloads():
     for file in os.listdir(r'C:\Users\Digital\Documents\GitHub\tgram_ybot2'):
         for item in files_end:
@@ -24,9 +31,11 @@ def clear_downloads():
 def download(update: Update, context: CallbackContext):
     clear_downloads()
     text = update.message.text.split(" ")
-    with youtube_dl.YoutubeDL({'format': '18'}) as ydl:
-        ydl.download([text[1]])
-    update.message.reply_text(text)
+    video_text = text[1]
+    update.message.reply_text('Downloading Video now. Please wait..')
+    with youtube_dl.YoutubeDL({}) as ydl:
+       ydl.download([video_text])
+    update.message.reply_text('Your video has finished downloading. Send {/dv} to download your video. ')
 
 
 def help(update, context):
@@ -45,6 +54,7 @@ def main():
     updater.dispatcher.add_handler(CommandHandler('start', start))
     updater.dispatcher.add_handler(CommandHandler('help', help))
     updater.dispatcher.add_handler(CommandHandler('download', download))
+    updater.dispatcher.add_handler(CommandHandler('dv', download_video))
     
     updater.start_polling()
     updater.idle()

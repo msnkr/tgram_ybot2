@@ -21,13 +21,6 @@ def download_video(update: Update, context: CallbackContext):
             clear_downloads()
 
 
-def clear_downloads():
-    for file in os.listdir(r'C:\Users\Digital\Documents\GitHub\tgram_ybot2'):
-        for item in files_end:
-            if file.endswith(item):
-                os.remove(file)
-        
-
 def download(update: Update, context: CallbackContext):
     clear_downloads()
     text = update.message.text.split(" ")
@@ -37,6 +30,13 @@ def download(update: Update, context: CallbackContext):
        ydl.download([video_text])
     update.message.reply_text('Your video has finished downloading. Send {/dv} to download your video. ')
 
+
+def clear_downloads():
+    for file in os.listdir(r'C:\Users\Digital\Documents\GitHub\tgram_ybot2'):
+        for item in files_end:
+            if file.endswith(item):
+                os.remove(file)
+        
 
 def help(update, context):
     update.message.reply_text('Takes long to download: The Youtube-dl api seems to be capped at 50Kpbs. Unfortunately there isn\'t much I can do about this. The original maintainer of the repo would have to fix this. I might try bypass youtube-dl but that is for a future release. ')

@@ -12,13 +12,14 @@ import youtube_dl
 
 
 load_dotenv('.env')
-files_end = ['.mp4', '.mp3', '.webm', '.part']
+files_end = ['.mp4', '.mp3', '.webm', '.part', '.mkv']
 
 def download_video(update: Update, context: CallbackContext):
     for file in os.listdir(r'C:\Users\Digital\Documents\GitHub\tgram_ybot2'):
-        if file.endswith('.mp4'):
-            context.bot.send_video(chat_id=update.effective_chat.id, video=open(f'{file}', 'rb'))
-            clear_downloads()
+        for item in files_end:
+            if file.endswith(item):
+                context.bot.send_video(chat_id=update.effective_chat.id, video=open(f'{file}', 'rb'))
+                clear_downloads()
 
 
 def download(update: Update, context: CallbackContext):
@@ -26,7 +27,7 @@ def download(update: Update, context: CallbackContext):
     text = update.message.text.split(" ")
     video_text = text[1]
     update.message.reply_text('Downloading Video now. Please wait..')
-    with youtube_dl.YoutubeDL({}) as ydl:
+    with youtube_dl.YoutubeDL({'format': '22'}) as ydl:
        ydl.download([video_text])
     update.message.reply_text('Your video has finished downloading. Send {/dv} to download your video. ')
 
@@ -39,8 +40,7 @@ def clear_downloads():
         
 
 def help(update, context):
-    update.message.reply_text('Takes long to download: The Youtube-dl api seems to be capped at 50Kpbs. Unfortunately there isn\'t much I can do about this. The original maintainer of the repo would have to fix this. I might try bypass youtube-dl but that is for a future release. ')
-
+    update.message.reply_text('Takes long to download: Look like Google doesn\'t like downloading higher than 50Kbps.')
 
 def start(update, context):
     update.message.reply_text('Welcome to url Youtube Downloader')

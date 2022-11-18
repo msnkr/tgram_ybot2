@@ -22,7 +22,7 @@ ydl_opts = {
         'preferredquality': '192',
     }]}
     
-def download_audio(update: Update, context: CallbackContext):
+def audio_download(update: Update, context: CallbackContext):
     for file in os.listdir(r'C:\Users\Digital\Documents\GitHub\tgram_ybot2'):
         for item in files_end:
             if file.endswith(item):
@@ -36,7 +36,7 @@ def audio(update: Update, context: CallbackContext):
     update.message.reply_text('Downloading audio now. Please wait..')
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
        ydl.download([audio_text])
-    video_download(update, context)
+    audio_download(update, context)
 
 
 

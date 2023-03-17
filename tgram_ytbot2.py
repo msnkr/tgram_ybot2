@@ -23,7 +23,7 @@ ydl_opts = {
     }]}
     
 def audio_download(update: Update, context: CallbackContext):
-    for file in os.listdir(r'C:\Users\Digital\Documents\GitHub\tgram_ybot2'):
+    for file in os.listdir('home/pi'):
         for item in files_end:
             if file.endswith(item):
                 context.bot.send_audio(chat_id=update.effective_chat.id, audio=open(f'{file}', 'rb'))
@@ -41,7 +41,7 @@ def audio(update: Update, context: CallbackContext):
 
 
 def video_download(update: Update, context: CallbackContext):
-    for file in os.listdir(r'C:\Users\Digital\Documents\GitHub\tgram_ybot2'):
+    for file in os.listdir('home/pi'):
         for item in files_end:
             if file.endswith(item):
                 context.bot.send_video(chat_id=update.effective_chat.id, video=open(f'{file}', 'rb'))
@@ -68,7 +68,7 @@ def short_video(update: Update, context: CallbackContext):
 
 
 def clear_downloads():
-    for file in os.listdir(r'C:\Users\Digital\Documents\GitHub\tgram_ybot2'):
+    for file in os.listdir('home/pi'):
         for item in files_end:
             if file.endswith(item):
                 os.remove(file)

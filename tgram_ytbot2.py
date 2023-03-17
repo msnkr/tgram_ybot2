@@ -8,7 +8,7 @@ from telegram.ext.filters import Filters
 import logging
 from dotenv import load_dotenv
 import os
-import youtube_dl
+import yt_dlp as youtube_dl
 
 
 load_dotenv('.env')
